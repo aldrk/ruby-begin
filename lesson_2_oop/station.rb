@@ -17,10 +17,12 @@ class Station
   def show_trains_type
     passenger_count = 0
     freight_count = 0
+
     @trains_on_station.each do |train|
       passenger_count += 1 if train.type == :passenger
       freight_count += 1 if train.type == :freight
     end
+
     puts "Now on station #{passenger_count} passenger's and #{freight_count} train(s)"
   end
 end
