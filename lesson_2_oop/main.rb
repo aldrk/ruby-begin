@@ -14,10 +14,10 @@ second_route = Route.new(rostov, piter)
 second_route.add_station(voronezh)
 second_route.add_station(moscow)
 
-first_train = Train.new(1, :freight)
+first_train = Train.new(1, :freight, 10)
 first_train.define_route(first_route)
 
-second_train = Train.new(2, :passenger)
+second_train = Train.new(2, :passenger, 15)
 second_train.define_route(second_route)
 
 first_train.move(1)

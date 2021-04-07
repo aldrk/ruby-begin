@@ -2,7 +2,8 @@ class Train
   attr_accessor :number, :type, :speed, :train_route
   attr_reader :carriage_count, :current_station
 
-  def initialize(number, type)
+  def initialize(number, type, carriage_count)
+    @carriage_count = carriage_count if carriage_count.positive?
     @number = number
     @type = type
   end
