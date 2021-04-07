@@ -24,7 +24,7 @@ class Train
 
   def move(moving_value)
     if moving_value == 1
-      if @current_station != train_route.last_station
+      if current_station != train_route.last_station
         moving_log(moving_value)
         @current_station += 1
 
