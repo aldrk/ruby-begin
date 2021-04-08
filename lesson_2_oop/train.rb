@@ -13,7 +13,7 @@ class Train
   end
 
   def remove_carriage
-    @carriage_count -= 1 if speed.zero? && !@carriage_count.zero?
+    @carriage_count -= 1 if speed.zero? && !carriage_count.zero?
   end
 
   def define_route(route)
