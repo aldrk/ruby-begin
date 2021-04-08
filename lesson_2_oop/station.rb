@@ -12,22 +12,13 @@ class Station
     trains_on_station << train
   end
 
-  def send_train(train, move_value)
+  def send_train(train)
     train.speed = 100
-    train.move(move_value)
 
-    accept_train.delete(train)
+    trains_on_station.delete(train)
   end
 
-  def show_trains_count_by_type
-    passenger_count = 0
-    freight_count = 0
-
-    trains_on_station.each do |train|
-      passenger_count += 1 if train.type == :passenger
-      freight_count += 1 if train.type == :freight
-    end
-
-    puts "Now on station #{passenger_count} passenger's and #{freight_count} train(s)"
+  def show_trains_by_type(type)
+    trains_on_station.select { |train| train.type == type }
   end
 end

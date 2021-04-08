@@ -22,39 +22,36 @@ class Train
     @current_station = train_route.first_station
   end
 
-  def move(moving_value)
-    if moving_value == 1
-      if current_station != train_route.last_station
-        moving_log(moving_value)
-        @current_station += 1
-
-        train_route.way[current_station].accept_train(self)
-      end
-    elsif moving_value == -1
-      if @current_station != train_route.first_station
-        moving_log(moving_value)
-        @current_station -= 1
-
-        train_route.way[current_station].accept_train(self)
-      end
-    end
+  def current_station_idx
+    train_route.way.find_index(current_station)
   end
 
-  def moving_log(moving_value)
-    case current_station
-    when 0
-      puts "Current station #{train_route.way[0].name}. Next station #{train_route.way[1].name}"
-    when train_route.last_station
-      current = train_route.way[train_route.way.last_station].name
-      next_station = train_route[train_route.way.last_station - 1].name
-
-      puts "Current station #{current}. Next station #{next_station}"
+  def prev_station
+    if current_station != train_route.first_station
+      train_route.way[current_station_idx - 1]
     else
-      current = train_route.way[current_station].name
-      previous = train_route.way[current_station - moving_value].name
-      next_station = train_route.way[current_station + moving_value].name
-
-      puts "Current station #{current}. Previous station #{previous}. Next station #{next_station} "
+      puts 'No previous station'
     end
   end
+
+  def next_station
+    if current_station != train_route.last_station
+      train_route.way[current_station_idx + 1]
+    else
+      puts 'No next station'
+    end
+  end
+
+  def move_to_next_station
+    @current_station.send_train(self)
+    @current_station = next_station
+    @current_station.accept_train(self)
+  end
+
+  def move_to_prev_station
+    @current_station.send_train(self)
+    @current_station = prev_station
+    @current_station.accept_train(self)
+  end
+
 end

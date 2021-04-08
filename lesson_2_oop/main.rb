@@ -7,22 +7,15 @@ piter = Station.new('St.-Petersburg')
 voronezh = Station.new('Voronezh')
 rostov = Station.new('Rostov')
 
-first_route = Route.new(piter, rostov)
-first_route.add_station(moscow)
 
-second_route = Route.new(rostov, piter)
-second_route.add_station(voronezh)
-second_route.add_station(moscow)
+route = Route.new(rostov, piter)
+route.add_station(voronezh)
+route.add_station(moscow)
 
-first_train = Train.new(1, :freight, 10)
-first_train.define_route(first_route)
+train = Train.new(2, :passenger, 15)
+train.define_route(route)
 
-second_train = Train.new(2, :passenger, 15)
-second_train.define_route(second_route)
+train.move_to_next_station
+train.move_to_next_station
 
-first_train.move(1)
-
-second_train.move(1)
-second_train.move(1)
-
-moscow.show_trains_count_by_type
+puts train.current_station.name
