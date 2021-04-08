@@ -20,6 +20,7 @@ class Train
     @train_route = route
 
     @current_station = train_route.first_station
+    @current_station.accept_train(self)
   end
 
   def current_station_idx
