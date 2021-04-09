@@ -6,6 +6,12 @@ class Station
     @trains_on_station = []
   end
 
+  def show_trains_by_type(type)
+    trains_on_station.select { |train| train.type == type }
+  end
+
+  private
+
   def accept_train(train)
     train.speed = 0
 
@@ -16,9 +22,5 @@ class Station
     train.speed = 100
 
     trains_on_station.delete(train)
-  end
-
-  def show_trains_by_type(type)
-    trains_on_station.select { |train| train.type == type }
   end
 end
