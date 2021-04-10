@@ -1,8 +1,9 @@
-class PassengerCarriage
+class Carriage
   attr_reader :type
 
+  TYPE = nil
+
   def initialize
-    @type = :passenger
+    @type = TYPE
   end
 end
-

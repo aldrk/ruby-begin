@@ -1,7 +1,5 @@
-class CargoCarriage
-  attr_reader :type
+require_relative './carriage'
 
-  def initialize
-    @type = :cargo
-  end
+class CargoCarriage < Carriage
+  TYPE = :cargo
 end
