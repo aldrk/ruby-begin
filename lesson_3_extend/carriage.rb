@@ -1,7 +1,7 @@
 class Carriage
   attr_reader :type
 
-  TYPE = nil
+  TYPE
 
   def initialize
     @type = TYPE

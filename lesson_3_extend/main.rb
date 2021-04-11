@@ -28,69 +28,39 @@ class Main
 
       case menu
       when 0
-        stations.each { |station| puts station.name }
+        station_list
       when 1
-        puts 'Введите номер и тип поезда(cargo, passenger)'
-        number = gets.chomp
-        type = gets.chomp
-        puts "Неправильный тип поезда" if type != 'passenger' || 'cargo'
-        type == 'passenger' ? create_passenger_train(number) : create_cargo_train(number)
+        create_train
 
       when 2
-        puts 'Введите имя станции'
-        name = gets.chomp
-        create_station(name)
+        create_station
 
       when 3
-        puts 'Введите начальный и конечный путь'
-        first_point = gets.chomp
-        end_point = gets.chomp
-        create_route(first_point, end_point)
+        create_route
 
       when 4
-        puts 'Введите имя маршрута и имя новой станции'
-        route_name = gets.chomp
-        station_name = gets.chomp
-        route = routes.filter {|route| route.name == route_name}
-        add_station_to_route(route, route_name)
+        add_station_to_route
 
       when 5
-        puts 'Введите имя маршрута и имя станции для удалениия'
-        route_name = gets.chomp
-        station_name = gets.chomp
-        route = routes.filter {|route| route.name == route_name}
-        remove_station_from_route(route, route_name) if route
+        remove_station_from_route
 
       when 6
-        puts 'Введите номер поезда'
-        number = gets.chomp
-        train = trains.filter {|train| train.number == number}
-        carriage = carriages.filter{|carriage| carriage.type == train.type}
-        add_carriage(train, carriage) if train && carriage
+        add_carriage
+
       when 7
-        puts 'Введите номер поезда'
-        number = gets.chomp
-        train = trains.filter {|train| train.number == number}
-        carriage = carriages.filter{|carriage| carriage.type == train.type}
-        remove_carriage(train, carriage) if train && carriage
+        remove_carriage
 
       when 8
-        puts 'Введите номер поезда'
-        number = gets.chomp.to_i
-        train = trains.filter {|train| train.number == number}
-        move_train_to_next_station(train) if train
+        move_train_to_next_station
 
       when 9
-        puts 'Введите номер поезда'
-        number = gets.chomp.to_i
-        train = trains.filter {|train| train.number == number}
-        move_train_to_prev_station(train) if train
+        move_train_to_prev_station
 
       when 10
-        puts 'Введите имя станции'
-        station_name = gets.chomp
-        station = stations.filter {|station| station.name == station_name}
-        show_trains_on_station(station) if station
+        show_trains_on_station
+
+      when 11
+        define_train_route
 
       else
         puts 'Некорректное значение'
@@ -99,7 +69,9 @@ class Main
   end
 
   private
+
   # все private, так как пользователь взаимодействует с интерфейсом
+
   def menu_info
     puts '0 - посмотреть список станций'
     puts '1 - создать поезд'
@@ -116,12 +88,105 @@ class Main
     puts 'stop - чтобы выйти'
   end
 
-  def create_station(name)
+  def station_list
+    stations.each { |station| puts station.name }
+  end
+
+  def create_train
+    puts 'Введите номер и тип поезда(cargo, passenger)'
+    number = gets.chomp.to_i
+    type = gets.chomp
+    puts 'Неправильный тип поезда' if type != 'passenger' || 'cargo'
+    type == 'passenger' ? create_passenger_train(number) : create_cargo_train(number)
+  end
+
+  def create_station
+    puts 'Введите имя станции'
+    name = gets.chomp
     stations << Station.new(name)
   end
 
-  def create_route(start_point, end_point)
-    routes << Route.new(start_point, end_point)
+  def create_route
+    puts 'Введите начальный и конечный путь и номер маршрута'
+    first_point = gets.chomp
+    end_point = gets.chomp
+    number = gets.chomp.to_i
+
+    routes << Route.new(first_point, end_point, number)
+  end
+
+  def add_station_to_route
+    puts 'Введите имя маршрута и имя новой станции'
+    route_name = gets.chomp
+    station_name = gets.chomp
+    route = routes.filter { |route| route.name == route_name }
+    station = stations.filter { |station| station.name == station_name }
+
+    route.add_station(station)
+  end
+
+  def remove_station_from_route
+    puts 'Введите имя маршрута и имя станции для удалениия'
+    route_name = gets.chomp
+    station_name = gets.chomp
+    route = routes.filter { |route| route.name == route_name }
+    station = stations.filter { |station| station.name == station_name }
+
+    return unless route.include?(station)
+
+    route.remove_station(station)
+  end
+
+  def define_train_route
+    puts 'Введите номер поезда и маршрута'
+    number = gets.chomp.to_i
+    route_number = get.chomp.to_i
+    train = trains.filter { |train| train.number == number }
+    route = routes.filter { |route_item| route_item.number == route_number }
+
+    train.define_route(route)
+  end
+
+  def add_carriage
+    puts 'Введите номер поезда'
+    number = gets.chomp.to_i
+    train = trains.filter { |train| train.number == number }
+    carriage = carriages.filter { |carriage| carriage.type == train.type }
+
+    train.add_carriage(carriage)
+  end
+
+  def remove_carriage
+    puts 'Введите номер поезда'
+    number = gets.chomp.to_i
+    train = trains.filter { |train| train.number == number }
+    carriage = carriages.filter { |carriage| carriage.type == train.type }
+
+    train.remove_carriage(carriage)
+  end
+
+  def move_train_to_next_station
+    puts 'Введите номер поезда'
+    number = gets.chomp.to_i
+    train = trains.filter { |train| train.number == number }
+
+    train.move_to_next_station
+  end
+
+  def move_train_to_prev_station
+    puts 'Введите номер поезда'
+    number = gets.chomp.to_i
+    train = trains.filter { |train| train.number == number }
+
+    train.move_to_prev_station
+  end
+
+  def show_trains_on_station
+    puts 'Введите имя станции'
+    station_name = gets.chomp
+    station = stations.filter { |station| station.name == station_name }
+
+    puts station.trains_on_station
   end
 
   def create_passenger_train(number)
@@ -138,40 +203,6 @@ class Main
 
   def create_cargo_carriage
     trains << CargoCarriage.new
-  end
-
-  def add_station_to_route(route, station)
-    route.add_station if stations.include?(station)
-  end
-
-  def remove_station_from_route(route, station)
-    return unless route.include?(station)
-
-    route.remove_station if station.class == Station && route.class == Route
-  end
-
-  def define_train_route(train, route)
-    train.define_route(route) if routes.include?(route) && trains.include?(train)
-  end
-
-  def add_carriage(train, carriage)
-    train.add_carriage(carriage) if @carriages.include?(carriage) && trains.include?(train)
-  end
-
-  def remove_carriage(train, carriage)
-    train.remove_carriage(carriage) if @carriages.include?(carriage) && trains.include?(train)
-  end
-
-  def move_train_to_next_station(train)
-    train.move_to_next_station if trains.include?(train)
-  end
-
-  def move_train_to_prev_station(train)
-    train.move_to_prev_station if trains.include?(train)
-  end
-
-  def show_trains_on_station(station)
-    puts station.trains_on_station if stations.include?(station)
   end
 end
 

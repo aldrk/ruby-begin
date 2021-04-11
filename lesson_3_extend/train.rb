@@ -2,7 +2,7 @@ class Train
   attr_accessor :number, :type, :speed, :train_route
   attr_reader :current_station, :carriages
 
-  TYPE = nil
+  TYPE
 
   def initialize(number)
     @carriages = []
@@ -42,6 +42,7 @@ class Train
   end
 
   protected
+
   # так как это вспомогательный метод
   def current_station_idx
     train_route.way.find_index(current_station)

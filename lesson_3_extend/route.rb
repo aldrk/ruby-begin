@@ -1,8 +1,10 @@
 class Route
   attr_accessor :way
+  attr_reader :number
 
-  def initialize(start_point, end_point)
+  def initialize(start_point, end_point, number)
     @way = [start_point, end_point]
+    @number = number
   end
 
   def add_station(station)
