@@ -5,11 +5,6 @@ class Train
   def initialize(number)
     @carriages = []
     @number = number
-    @type = type_init
-  end
-
-  def type_init
-    nil
   end
 
   def add_carriage(carriage)
