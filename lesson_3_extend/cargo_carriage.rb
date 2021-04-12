@@ -1,5 +1,7 @@
 require_relative './carriage'
 
 class CargoCarriage < Carriage
-  TYPE = :cargo
+  def type_init
+    :cargo
+  end
 end

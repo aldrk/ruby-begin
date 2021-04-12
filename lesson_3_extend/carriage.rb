@@ -1,9 +1,11 @@
 class Carriage
   attr_reader :type
 
-  TYPE
-
   def initialize
-    @type = TYPE
+    @type = type_init
+  end
+
+  def type_init
+    nil
   end
 end

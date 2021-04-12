@@ -2,12 +2,14 @@ class Train
   attr_accessor :number, :type, :speed, :train_route
   attr_reader :current_station, :carriages
 
-  TYPE
-
   def initialize(number)
     @carriages = []
     @number = number
-    @type = TYPE
+    @type = type_init
+  end
+
+  def type_init
+    nil
   end
 
   def add_carriage(carriage)

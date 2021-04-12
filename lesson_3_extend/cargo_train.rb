@@ -1,5 +1,7 @@
 require_relative 'train'
 
 class CargoTrain < Train
-  TYPE = :passenger
+  def type_init
+    :cargo
+  end
 end

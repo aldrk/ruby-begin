@@ -31,37 +31,26 @@ class Main
         station_list
       when 1
         create_train
-
       when 2
         create_station
-
       when 3
         create_route
-
       when 4
         add_station_to_route
-
       when 5
         remove_station_from_route
-
       when 6
         add_carriage
-
       when 7
         remove_carriage
-
       when 8
         move_train_to_next_station
-
       when 9
         move_train_to_prev_station
-
       when 10
         show_trains_on_station
-
       when 11
         define_train_route
-
       else
         puts 'Некорректное значение'
       end
