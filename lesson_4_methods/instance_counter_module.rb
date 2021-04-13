@@ -8,14 +8,14 @@ module InstanceCounter
     attr_accessor :count_instances
 
     def instances
-      puts "Количество обьектов = #{@count_instances}"
+      @count_instances
     end
   end
 
   module InstanceMethods
     protected
     def register_instance
-      self.class.count_instances ||= 0
+      self.class.count_instances ||= nil
       self.class.count_instances += 1
     end
   end
