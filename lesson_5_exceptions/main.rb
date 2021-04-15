@@ -95,6 +95,7 @@ class Main
       puts 'Введите номер поезда'
       number = gets.chomp
       type == 1 ? create_cargo_train(number) : create_passenger_train(number)
+      puts "Был создан #{type == 1 ? 'грузововй' : 'пассажирский'} поезд с номером #{number}"
     rescue RuntimeError
       puts 'Неправильный номер поеда'
       retry
