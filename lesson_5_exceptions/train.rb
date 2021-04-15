@@ -13,7 +13,6 @@ class Train
   def initialize(number)
     @carriages = []
     @number = number
-
     validate_train!
     register_instance
     self.class.add_instance << self
@@ -42,14 +41,12 @@ class Train
 
   def define_route(route)
     @train_route = route
-
     @current_station = train_route.first_station
     @current_station.accept_train(self)
   end
 
   def move_to_next_station
     return if @current_station == train_route.last_station
-
     @current_station.send_train(self)
     @current_station = next_station
     @current_station.accept_train(self)
@@ -57,7 +54,6 @@ class Train
 
   def move_to_prev_station
     return if @current_station == train_route.first_station
-
     @current_station.send_train(self)
     @current_station = prev_station
     @current_station.accept_train(self)
@@ -69,7 +65,6 @@ class Train
   rescue
     false
   end
-
 
   protected
 

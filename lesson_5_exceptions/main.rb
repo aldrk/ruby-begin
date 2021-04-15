@@ -60,7 +60,6 @@ class Main
   private
 
   # все private, так как пользователь взаимодействует с интерфейсом
-
   def menu_info
     puts '0 - посмотреть список станций'
     puts '1 - создать поезд'
@@ -73,7 +72,6 @@ class Main
     puts '8 - переместить поезд вперед'
     puts '9 - перместить поезд назад'
     puts '10 - посмотреть список поездов на станции'
-
     puts 'stop - чтобы выйти'
   end
 
@@ -123,7 +121,6 @@ class Main
     station_name = gets.chomp
     route = routes.filter { |route| route.name == route_name }
     station = stations.filter { |station| station.name == station_name }
-
     route.add_station(station)
   end
 
@@ -133,9 +130,7 @@ class Main
     station_name = gets.chomp
     route = routes.filter { |route| route.name == route_name }
     station = stations.filter { |station| station.name == station_name }
-
     return unless route.include?(station)
-
     route.remove_station(station)
   end
 
@@ -145,7 +140,6 @@ class Main
     route_number = get.chomp.to_i
     train = trains.filter { |train| train.number == number }
     route = routes.filter { |route_item| route_item.number == route_number }
-
     train.define_route(route)
   end
 
@@ -154,7 +148,6 @@ class Main
     number = gets.chomp.to_i
     train = trains.filter { |train| train.number == number }
     carriage = carriages.filter { |carriage| carriage.type == train.type }
-
     train.add_carriage(carriage)
   end
 
@@ -163,7 +156,6 @@ class Main
     number = gets.chomp.to_i
     train = trains.filter { |train| train.number == number }
     carriage = carriages.filter { |carriage| carriage.type == train.type }
-
     train.remove_carriage(carriage)
   end
 
@@ -171,7 +163,6 @@ class Main
     puts 'Введите номер поезда'
     number = gets.chomp.to_i
     train = trains.filter { |train| train.number == number }
-
     train.move_to_next_station
   end
 
@@ -179,7 +170,6 @@ class Main
     puts 'Введите номер поезда'
     number = gets.chomp.to_i
     train = trains.filter { |train| train.number == number }
-
     train.move_to_prev_station
   end
 
@@ -187,7 +177,6 @@ class Main
     puts 'Введите имя станции'
     station_name = gets.chomp
     station = stations.filter { |station| station.name == station_name }
-
     puts station.trains_on_station
   end
 

@@ -42,7 +42,6 @@ class Route
 
   def validate_points!
     length_check = first_station.length < 5 || last_station.length < 5
-
     raise 'Начальный или конечный маршрут не должны быть пустыми' if first_station.nil? || last_station.nil?
     raise 'Начальный или конечный маршрут не должны быть меньше 5 смволов' if length_check
   end

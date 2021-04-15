@@ -31,13 +31,11 @@ class Station
 
   def accept_train(train)
     train.speed = 0
-
     trains_on_station << train
   end
 
   def send_train(train)
     train.speed = 100
-
     trains_on_station.delete(train)
   end
 
