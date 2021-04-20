@@ -22,7 +22,7 @@ module Validation
 
     def valid?
       validate!
-    rescue ArgumentError
+    rescue RuntimeError
       false
     end
 
@@ -35,12 +35,12 @@ module Validation
 
     def validate_format(name, format, message = 'Invalid format')
       value = instance_variable_get("@#{name}")
-      raise ArgumentError, message unless value =~ format
+      raise message unless value =~ format
     end
 
     def validate_type(name, type, message = 'Invalid type')
       class_type = instance_variable_get("@#{name}").to_s
-      raise ArgumentError, message if class_type != type
+      raise message if class_type != type
     end
   end
 end
